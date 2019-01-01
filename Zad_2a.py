@@ -14,32 +14,48 @@
 
 import random
 
-def lotto():
-    winning_list = random.sample(range(50), 6)
-    print(winning_list)
+
+def get_winning_list():
+    return random.sample(range(50), 6)
+
+
+def get_user_list():
     usr_numbers = []
 
     while len(usr_numbers) < 6:
         try:
-            give_number = int(input("Podaj liczbę: "))
+            give_number = int(input("podaj liczbe: "))
             if give_number < 1 or give_number > 49:
-                print("Liczba musi być z zakresu 1 do 49.")
+                print("Liczba powinna być z zakresu [1, 49]")
             elif give_number in usr_numbers:
-                print("Liczba się powtarza.")
+                print("Liczba powtarza")
             else:
                 usr_numbers.append(give_number)
+
         except ValueError:
-            print("Musisz podać liczby")
+            print("musisz podac liczby z zakresu [1, 49]")
 
     usr_numbers.sort()
-    print(usr_numbers)
+    return usr_numbers
 
+
+def check_winning_numbers(winning_list, usr_numbers):
     win_qty = 0
+
     for i in usr_numbers:
         if i in winning_list:
             win_qty = win_qty + 1
     if win_qty >= 3:
-        print("Trafiłeś " + str(win_qty))
+        print("Trafiles " + str(win_qty))
+
+
+def lotto():
+    winning_list = get_winning_list()
+    print(winning_list)
+    usr_numbers = get_user_list()
+    print(usr_numbers)
+
+    check_winning_numbers(winning_list, usr_numbers)
 
 
 lotto()
